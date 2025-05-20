@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>OpenPowerBench</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; }
+.nav-buttons {
+  padding: 2rem;
+
+  margin: 1em 0;
+  text-align: center;
+}
+
+.nav-btn {
+  background-color: #eee;
+  padding: 0.6em 1em;
+  border-radius: 12px;
+  margin-right: 1em;
+  font-weight: bold;
+  color: maroon;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.nav-btn:hover {
+  background-color: #ffdede;
+}
+    /* Nav bar styling */
+    .navbar {
+      background: linear-gradient(to bottom, maroon, #fff);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin-left: 2rem;
+      font-weight: bold;
+    }
+
+    .navbar a:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      color: maroon;
+      text-align: center;
+    }
+
+    table.dataTable thead th {
+      background-color: #f3dcdc;
+      color: #4a0000;
+    }
+
+    h2{
+      font-size: 0.95rem;
+      color: black;
+      margin-left: 2rem;
+      margin-top: 2rem;
+    }
+
+    .content {
+      padding: 2rem;
+    }
+    #task-filter {
+  padding: 0.4em 0.8em;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid maroon;
+  background-color: #f8eaea;
+  color: maroon;
+  font-weight: bold;
+  margin-bottom: 1.5em;
+}
+
+#task-filter:focus {
+  outline: none;
+  border-color: #800000;
+  box-shadow: 0 0 4px #80000055;
+}
+
+.label-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  margin-bottom: 1em;
+}
+
+  </style>
+</head>
+<body>
+<div class="navbar">
+    <div><strong style="font-size: 1.5rem;">OpenPowerBench</strong></div>
+    <div>
+      <a> Paper </a>
+<!--      <a href="https://your-link-to-paper.com">Paper</a>-->
+      <a href="https://github.com/OpenPowerBench/OpenPowerBench">Code</a>
+      <a href="https://your-dataset-page.com">Datasets</a>
+    </div>
+  </div>
+
+
+  <div class="intro">
+
+    <h2>OpenPowerBench is a first-of-its-kind open-source, multi-task, cross-temporal dataset designed to support training and evaluation of foundation models in power systems. OpenPowerBench includes both topology-dependent tasks (e.g., power flow, optimal power flow, contingency analysis) and topology-independent tasks (e.g., load forecasting, price prediction), supported by a modular data generation pipeline for scalable benchmarking across synthetic and real-world scenarios.</h2>
+  </div>
+
+<!--<h2>Available Leaderboards</h2>-->
+<div class="nav-buttons">
+  <a href="#topology_independent" class="nav-btn">Topology-Independent</a>
+  <a href="#steady" class="nav-btn">Steady-State</a>
+  <a href="#transient" class="nav-btn">Transient-State</a>
+</div>
+
+<!-- Repeat for other tasks... -->
+
+  <!-- Page content -->
+  <div class="content">
+    <h1>Leaderboard: Topology-Independent</h1>
+      <select id="task-filter">
+    <option value="">All Tasks</option>
+    <option value="Load Forecasting">Load Forecasting</option>
+    <option value="Wind Generation Forecasting">Wind Generation Forecasting</option>
+    <option value="Solar Generation Forecasting">Solar Generation Forecasting</option>
+    <option value="Electricity Price Forecasting">Electricity Price (LMP) Forecasting</option>
+
+
+    <!-- Add more task types here -->
+  </select>
+    <!-- your table here -->
+  </div>
+  <table id="topology_independent" class="display" style="width:100%">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Task</th>
+        <th>Model</th>
+        <th>NRMSE</th>
+        <th>R<sup>2</sup> Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td></td><td>Load Forecasting</td><td>Time-LLM</td><td>21.217</td><td>0.989</td></tr>
+      <tr><td></td><td>Load Forecasting</td><td>LSTM</td><td>21.694</td><td>0.988</td></tr>
+      <tr><td></td><td>Load Forecasting</td><td>Encoder-only Transformer</td><td>25.580</td><td>0.983</td></tr>
+
+      <tr><td></td><td>Wind Generation Forecasting</td><td>Time-LLM</td><td>72.779</td><td>0.730</td></tr>
+      <tr><td></td><td>Wind Generation Forecasting</td><td>LSTM</td><td>81.326</td><td>0.676</td></tr>
+      <tr><td></td><td>Wind Generation Forecasting</td><td>Encoder-only Transformer</td><td>84.644</td><td>0.649</td></tr>
+
+      <tr><td></td><td>Solar Generation Forecasting</td><td>LSTM</td><td>69.216 </td><td>0.667</td></tr>
+      <tr><td></td><td>Solar Generation Forecasting</td><td>Encoder-only Transformer</td><td>73.107</td><td>0.730</td></tr>
+      <tr><td></td><td>Solar Generation Forecasting</td><td>Time-LLM</td><td>79.837</td><td>-7.940</td></tr>
+
+      <tr><td></td><td>Electricity Price Forecasting</td><td>Time-LLM</td><td>131.421</td><td>0.872</td></tr>
+      <tr><td></td><td>Electricity Price Forecasting</td><td>LSTM</td><td>192.574</td><td>0.778</td></tr>
+      <tr><td></td><td>Electricity Price Forecasting</td><td>Encoder-only Transformer</td><td>195.074</td><td>0.768</td></tr>
+
+
+    </tbody>
+  </table>
+
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var table = $('#topology_independent').DataTable({
+        columnDefs: [
+          { targets: 0, orderable: false } // make Rank column not sortable
+        ],
+        order: [[1, 'asc']],  // default sort by Task
+        drawCallback: function (settings) {
+          var api = this.api();
+          var rows = api.rows({ page: 'current' }).nodes();
+          var data = api.rows({ page: 'current' }).data();
+
+          let currentTask = null;
+          let localRank = 0;
+
+          data.each(function (rowData, i) {
+            if (rowData[1] !== currentTask) {
+              currentTask = rowData[1];
+              localRank = 1;
+            } else {
+              localRank++;
+            }
+            $(rows).eq(i).find('td:eq(0)').html(localRank);
+          });
+        }
+      });
+
+      $('#task-filter').on('change', function () {
+        var selected = $(this).val();
+        if (selected) {
+          table.column(1).search('^' + selected + '$', true, false).draw();
+        } else {
+          table.column(1).search('').draw();
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
