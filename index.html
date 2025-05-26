@@ -241,6 +241,31 @@
         }
       });
 
+      var steadyTable = $('#steady').DataTable({
+        columnDefs: [
+          { targets: 0, orderable: false }
+        ],
+        order: [[1, 'asc']],
+        drawCallback: function (settings) {
+          var api = this.api();
+          var rows = api.rows({ page: 'current' }).nodes();
+          var data = api.rows({ page: 'current' }).data();
+      
+          let currentTask = null;
+          let localRank = 0;
+      
+          data.each(function (rowData, i) {
+            if (rowData[1] !== currentTask) {
+              currentTask = rowData[1];
+              localRank = 1;
+            } else {
+              localRank++;
+            }
+            $(rows).eq(i).find('td:eq(0)').html(localRank);
+          });
+        }
+      });
+
       $('#task-filter').on('change', function () {
         var selected = $(this).val();
         if (selected) {
